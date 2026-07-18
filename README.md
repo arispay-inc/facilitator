@@ -1,5 +1,6 @@
 # ArisPay x402 Facilitator
 
+
 Open x402 facilitator, live on Base mainnet at `https://facilitator.arispay.app`.
 
 Verifies and settles x402 payments for any x402-speaking seller. No auth, no
@@ -36,11 +37,14 @@ The three spec endpoints are also mirrored under `/facilitator/*`
 clients configured with a path prefix. `/discovery/resources` is likewise
 mirrored at `/facilitator/discovery/resources`.
 
-The Bazaar catalog is served from the PayGate v2 product registry (the
+The Bazaar catalog merges two sources: the PayGate v2 product registry (the
 hosted proxy at `paygate.arispay.app/{slug}/*` settles through this
-facilitator). Each item's `accepts` mirrors what the resource's real 402
-advertises — indexers such as x402scan and Coinbase's Bazaar crawl this
-endpoint to list our merchants.
+facilitator), and organic sightings — third-party servers emitting the
+`bazaar` discovery extension in their 402s, cataloged on successful verify
+(see `src/discovery.ts`). Each item's `accepts` mirrors what the resource's
+real 402 advertises. Indexers such as x402scan and Coinbase's Bazaar crawl
+this endpoint to list our merchants; sellers make themselves
+directory-visible just by settling through us with the extension enabled.
 
 ## Networks and assets
 
@@ -106,4 +110,5 @@ hosted and operated at `https://facilitator.arispay.app` — there is nothing
 to run to use it. Source release is planned as the codebase graduates out
 of ArisPay's private monorepo; watch this repo.
 
-Company: [ArisPay](https://arispay.app) · Service status endpoint: [`GET /health`](#endpoints)
+Company: [ArisPay](https://arispay.app) · Service status: [status.arispay.app](https://status.arispay.app)
+
